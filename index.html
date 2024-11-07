@@ -90,6 +90,7 @@
        * Callback after api.js is loaded.
        */
       function gapiLoaded() {
+        console.log("gapiLoaded running");
         gapi.load('client', initializeGapiClient);
       }
 
@@ -98,6 +99,7 @@
        * discovery doc to initialize the API.
        */
       async function initializeGapiClient() {
+        console.log("initializeGapiClient running");
         await gapi.client.init({
           apiKey: API_KEY,
           discoveryDocs: [DISCOVERY_DOC],
@@ -110,6 +112,7 @@
        * Callback after Google Identity Services are loaded.
        */
       function gisLoaded() {
+        console.log("gisLoaded running");
         tokenClient = google.accounts.oauth2.initTokenClient({
           client_id: CLIENT_ID,
           scope: SCOPES,
@@ -123,6 +126,7 @@
        * Enables user interaction after all libraries are loaded.
        */
       function maybeEnableButtons() {
+        console.log("maybeEnableButtons running");
         if (gapiInited && gisInited) {
           document.getElementById('authorize_button').style.visibility = 'visible';
         }
@@ -132,6 +136,7 @@
        *  Sign in the user upon button click.
        */
       function handleAuthClick() {
+        console.log("handleAuthClick running");
         tokenClient.callback = async (resp) => {
           if (resp.error !== undefined) {
             throw (resp);
@@ -155,6 +160,7 @@
        *  Sign out the user upon button click.
        */
       function handleSignoutClick() {
+        console.log("handleSignoutClick running");
         const token = gapi.client.getToken();
         if (token !== null) {
           google.accounts.oauth2.revoke(token.access_token);
@@ -170,6 +176,7 @@
        * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
        */
       async function listMajors() {
+        console.log("listMajors running");
         let response;
         try {
           // Fetch first 10 files
